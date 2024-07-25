@@ -9,7 +9,7 @@ let quotes = [
     // Add more quotes here
 ];
 
-function displayRandomQuote() {
+function showRandomQuote() {
     const randomIndex = Math.floor(Math.random() * quotes.length);
     const randomQuote = quotes[randomIndex];
 
