@@ -138,7 +138,7 @@ function populateCategories() {
 const SYNC_INTERVAL = 5000; // Sync every 5 seconds (for demonstration)
 
 async function fetchQuotesFromServer"() {
-  fetch('https://jsonplaceholder.typicode.com/posts')
+  await fetch('https://jsonplaceholder.typicode.com/posts')
     .then(response => response.json())
     .then(serverQuotes => {
       // Simulate server data as quotes
