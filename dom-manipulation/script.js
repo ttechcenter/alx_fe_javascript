@@ -137,7 +137,7 @@ function populateCategories() {
 
 const SYNC_INTERVAL = 5000; // Sync every 5 seconds (for demonstration)
 
-function fetchQuotesFromServer"() {
+async function fetchQuotesFromServer"() {
   fetch('https://jsonplaceholder.typicode.com/posts')
     .then(response => response.json())
     .then(serverQuotes => {
