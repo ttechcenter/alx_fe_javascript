@@ -137,7 +137,7 @@ function populateCategories() {
 
 const SYNC_INTERVAL = 5000; // Sync every 5 seconds (for demonstration)
 
-async function syncData() {
+async function fetchQuotesFromServer() {
   try {
     const newQuote = {
       // Create a new quote object to send to the server
