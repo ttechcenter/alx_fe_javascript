@@ -166,4 +166,7 @@ async function fetchQuotesFromServer() {
   }
 }
 
+function syncQuotes() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(quotes));
+}
 setInterval(syncData, SYNC_INTERVAL);
