@@ -101,21 +101,7 @@
       fileReader.readAsText(event.target.files[0]);
     }
 
-    function populateCategoryFilter() {
-      const categories = new Set(quotes.map(quote => quote.category));
-      categoryFilter.innerHTML = '<option value="all">All Categories</option>';
-      categories.forEach(category => {
-        const option = document.createElement('option');
-        option.value = category;
-        option.text = category;
-        categoryFilter.appendChild(option);   
-  
 
-      });
-      if (lastFilter && categoryFilter.options.namedItem(lastFilter)) {
-        categoryFilter.value = lastFilter;
-      }
-    }
 function populateCategoryFilter() {
   const categories = new Set(quotes.map(quote => quote.category));
   categoryFilter.innerHTML = '<option value="all">All Categories</option>';
