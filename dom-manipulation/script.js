@@ -135,6 +135,15 @@ function populateCategories() {
     populateCategoryFilter(); // Initial populate
     filterQuotes(); // Initial filter
 
+function showSyncSuccessMessage() {
+  // Replace this with your desired UI implementation
+  alert('Quotes synced with server!'); // For demonstration
+}
+
+function showSyncErrorMessage(error) {
+  // Replace this with your desired UI implementation
+  alert('Error syncing data:', error);
+}
 const SYNC_INTERVAL = 5000; // Sync every 5 seconds (for demonstration)
 
 async function fetchQuotesFromServer() {
@@ -159,9 +168,11 @@ async function fetchQuotesFromServer() {
 
     const data = await response.json();
     console.log('Success:', data);
+       showSyncSuccessMessage();
   } catch (error) {
     console.error('Error   
  syncing data:', error);
+         showSyncErrorMessage(error);
     // Handle sync errors, e.g., show a notification
   }
 }
