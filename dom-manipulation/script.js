@@ -134,3 +134,29 @@ function populateCategories() {
 
     populateCategoryFilter(); // Initial populate
     filterQuotes(); // Initial filter
+
+const SYNC_INTERVAL = 5000; // Sync every 5 seconds (for demonstration)
+
+function syncData() {
+  fetch('https://jsonplaceholder.typicode.com/posts')
+    .then(response => response.json())
+    .then(serverQuotes => {
+      // Simulate server data as quotes
+      const serverQuoteObjects = serverQuotes.map(post => ({
+        text: post.title,
+        category: 'server' // Replace with actual category logic
+      }));
+
+      // Simple conflict resolution: Overwrite local quotes with server quotes
+      quotes = serverQuoteObjects;
+      saveQuotes();
+      populateCategoryFilter();
+      filterQuotes();
+    })
+    .catch(error => {
+      console.error('Error syncing data:', error);
+      // Handle sync errors, e.g., show a notification
+    });
+}
+
+setInterval(syncData, SYNC_INTERVAL);
