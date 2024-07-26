@@ -102,7 +102,7 @@
     }
 
 
-function populateCategoryFilter() {
+function populateCategories() {
   const categories = new Set(quotes.map(quote => quote.category));
   categoryFilter.innerHTML = '<option value="all">All Categories</option>';
   categories.forEach(category => {
