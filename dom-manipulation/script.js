@@ -137,26 +137,33 @@ function populateCategories() {
 
 const SYNC_INTERVAL = 5000; // Sync every 5 seconds (for demonstration)
 
-async function fetchQuotesFromServer"() {
-  await fetch('https://jsonplaceholder.typicode.com/posts')
-    .then(response => response.json())
-    .then(serverQuotes => {
-      // Simulate server data as quotes
-      const serverQuoteObjects = serverQuotes.map(post => ({
-        text: post.title,
-        category: 'server' // Replace with actual category logic
-      }));
+async function syncData() {
+  try {
+    const newQuote = {
+      // Create a new quote object to send to the server
+      text: 'New quote from client',
+      category: 'new'
+    };
 
-      // Simple conflict resolution: Overwrite local quotes with server quotes
-      quotes = serverQuoteObjects;
-      saveQuotes();
-      populateCategoryFilter();
-      filterQuotes();
-    })
-    .catch(error => {
-      console.error('Error syncing data:', error);
-      // Handle sync errors, e.g., show a notification
+    const response = await fetch('https://your-api-endpoint', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newQuote)
     });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    console.log('Success:', data);
+  } catch (error) {
+    console.error('Error   
+ syncing data:', error);
+    // Handle sync errors, e.g., show a notification
+  }
 }
 
 setInterval(syncData, SYNC_INTERVAL);
