@@ -16,7 +16,7 @@ function showRandomQuote(category) {
     filteredQuotes = quotes.filter(quote => quote.category === category);
   }
   if (filteredQuotes.length === 0) {
-    quoteDisplay.textContent = 'No quotes found for this category.';
+    quoteDisplay.innerHTML = '<p>No quotes found for this category.</P>';
     return;
   }
   const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
