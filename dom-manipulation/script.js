@@ -145,7 +145,7 @@ async function fetchQuotesFromServer() {
       category: 'new'
     };
 
-    const response = await fetch('https://your-api-endpoint', {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
