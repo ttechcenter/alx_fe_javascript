@@ -1,39 +1,61 @@
 const quoteDisplay = document.getElementById('quoteDisplay');
-const newQuoteBtn = document.getElementById('newQuote');
+const newQuoteButton = document.getElementById('newQuote');
+const categorySelect = document.getElementById('categorySelect');
 const addQuoteForm = document.getElementById('addQuoteForm');
-const addQuoteBtn = document.getElementById('addQuoteBtn');
+const showAddFormButton = document.getElementById('showAddForm');
 
 let quotes = [
-    { text: "The only way to do great work is to love what you do.", category: "Work" },
-    { text: "In the middle of difficulty lies opportunity.", category: "Life" },
-    // Add more quotes here
+  { text: 'The only way to do great work is to love what you do.', category: 'inspiration' },
+  { text: 'In the middle of difficulty lies opportunity.', category: 'inspiration' },
+  // ... more quotes
 ];
 
-function showRandomQuote() {
-    const randomIndex = Math.floor(Math.random() * quotes.length);
-    const randomQuote = quotes[randomIndex];
-
-    quoteDisplay.textContent = `"${randomQuote.text}"   
- - ${randomQuote.category}`;
+function showRandomQuote(category) {
+  let filteredQuotes = quotes;
+  if (category !== 'all') {
+    filteredQuotes = quotes.filter(quote => quote.category === category);
+  }
+  if (filteredQuotes.length === 0) {
+    quoteDisplay.textContent = 'No quotes found for this category.';
+    return;
+  }
+  const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
+  const randomQuote = filteredQuotes[randomIndex];
+  quoteDisplay.textContent = randomQuote.text;
 }
 
+newQuoteButton.addEventListener('click', () => {
+  const category = categorySelect.value;
+  showRandomQuote(category);
+});
+
 function createAddQuoteForm() {
-    addQuoteForm.style.display = 'block';
+  addQuoteForm.style.display = 'block';
+  showAddFormButton.style.display = 'none';
 }
 
 function addQuote() {
-    const newQuoteText = document.getElementById('newQuoteText').value;
-    const newQuoteCategory = document.getElementById('newQuoteCategory').value;
+  const newQuoteText = document.getElementById('newQuoteText').value;
+  const newQuoteCategory = document.getElementById('newQuoteCategory').value;
 
-    if (newQuoteText && newQuoteCategory) {
-        const newQuote = { text: newQuoteText, category: newQuoteCategory };
-        quotes.push(newQuote);
-        addQuoteForm.style.display = 'none';
-        showRandomQuote(); // Display the newly added quote
-    } else {
-        alert('Please enter both quote and category');
+  if (newQuoteText && newQuoteCategory) {
+    const newQuote = { text: newQuoteText, category: newQuoteCategory };
+    quotes.push(newQuote);
+    // Add category to select if it doesn't exist
+    if (!categorySelect.options.namedItem(newQuoteCategory)) {
+      const option = document.createElement('option');
+      option.value = newQuoteCategory;
+      option.text = newQuoteCategory;
+      categorySelect.appendChild(option);
     }
+    // Clear input fields
+    document.getElementById('newQuoteText').value = '';
+    document.getElementById('newQuoteCategory').value = '';
+    showRandomQuote('all'); // Display a new quote, including the added one
+  }
 }
 
-newQuoteBtn.addEventListener('click', showRandomQuote);
-addQuoteBtn.addEventListener('click', createAddQuoteForm);
+showAddFormButton.addEventListener('click', createAddQuoteForm);
+
+// Initial quote display
+showRandomQuote('all');
